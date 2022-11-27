@@ -1,5 +1,9 @@
 #include<iostream>
+#include<queue>
 using namespace std;
+
+//==========================================
+// Tree Declaration
 
 class node{
 public:
@@ -7,6 +11,9 @@ public:
     node* left;
     node* right;
 };
+
+//==========================================
+// Tree Creation
 
 node* newNode(int data){
     node* Node = new node();
@@ -16,6 +23,9 @@ node* newNode(int data){
 
     return Node;
 }
+
+//==========================================
+// Tree traversal
 
 void InOrder(node* temp){
     if(temp == NULL)
@@ -41,8 +51,28 @@ void PostOrder(node* temp){
     cout << temp->data << " ";
 }
 
+void levelOrder(node* temp){
+    if (temp == NULL)
+        return;
+    queue<node*> q;
+    q.push(temp);
+    while(!q.empty()){
+        node* front = q.front();
+        cout << front->data << " ";
+        q.pop();
+
+        if(front->left != NULL)
+            q.push(front->left);
+        if(front->right != NULL)
+            q.push(front->right);
+    }
+}
+
+//==========================================
+// Main function to call different function
+
 int main(){
-    cout << "Hello, Welocome to Tree PlayGround" << endl;
+    cout << "Hello, Welocome to Tree PlayGround\n" << endl;
     node* root = newNode(1);
     root->left = newNode(2);
     root->right = newNode(3);
@@ -54,4 +84,5 @@ int main(){
     cout << "InOrder Traversal: "; InOrder(root); cout << endl;
     cout << "PreOrder Traversal: "; PreOrder(root); cout << endl;
     cout << "PostOrder Traversal: "; PostOrder(root); cout << endl;
+    cout << "Level Order Traversal: "; levelOrder(root); cout << endl;
 }
